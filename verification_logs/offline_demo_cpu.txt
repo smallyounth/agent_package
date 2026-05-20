@@ -1,0 +1,30 @@
+{
+  "title": "AIOps 结构化诊断摘要",
+  "scenario": "诊断 data-sync-service 当前是否存在告警，并给出根因、风险和下一步动作。",
+  "affected_services": [
+    "data-sync-service"
+  ],
+  "severity": "P1 - 高风险，需要立即处理",
+  "root_cause": "CPU 使用率过高导致任务处理超时，疑似数据同步工作线程被计算或重试逻辑拖慢。",
+  "key_metrics": {
+    "cpu_max_percent": 96.0,
+    "memory_max_percent": null
+  },
+  "evidence": [
+    "{\"service_name\": \"data-sync-service\", \"metric_name\": \"cpu_usage_percent\", \"statistics\": {\"avg\": 77.2, \"max\": 96.0, \"p95\": 94.8, \"spike_detected\": true}, \"alert_info\": {\"triggered\": true, \"threshold\": 80.0, \"message\": \"CP",
+    "{\"service_name\": \"data-sync-service\", \"logs\": [{\"level\": \"ERROR\", \"message\": \"metadata sync worker timeout after retry\"}, {\"level\": \"WARN\", \"message\": \"retry queue length increased to 1200\"}]}",
+    "data-sync-service CPU 峰值 96%，同时出现 metadata sync worker timeout 和重试队列增长，判断为同步任务重试放大导致 CPU 饱和。"
+  ],
+  "risk_explanation": "P1 - 高风险，需要立即处理。CPU 高位会放大请求排队、任务超时和重试风暴，可能进一步拖慢下游依赖。",
+  "next_actions": [
+    "确认高 CPU 进程和最近 15 分钟错误日志是否集中在同一服务。",
+    "临时限流或扩容 data-sync-service，避免重试继续放大负载。",
+    "排查同步任务是否存在重试间隔过短、死循环或大批量数据扫描。"
+  ],
+  "tool_call_boundary": [
+    "只通过工具读取知识库、日志和监控数据，不直接登录机器。",
+    "MCP 工具只负责查询；重启、扩容、回滚等变更动作必须人工确认。",
+    "报告必须引用工具证据；证据不足时输出不确定性和补查动作。"
+  ],
+  "verification_hint": "Run scripts/run_offline_demo.py and tests/test_aiops_summary_enhancer.py."
+}

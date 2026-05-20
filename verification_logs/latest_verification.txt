@@ -1,0 +1,99 @@
+SuperBizAgent Interview Verification Log
+generated_at: 2026-05-21T00:07:22
+package_root: <项目根目录>\agent_package
+python: python on PATH
+overall_result: PASS
+
+## Check 1: AI enhancement CPU alert demo
+command: python scripts/run_offline_demo.py --sample sample_events/cpu_alert_events.json --json-only
+exit_code: 0
+duration_seconds: 0.192
+
+[stdout]
+{
+  "title": "AIOps 结构化诊断摘要",
+  "scenario": "诊断 data-sync-service 当前是否存在告警，并给出根因、风险和下一步动作。",
+  "affected_services": [
+    "data-sync-service"
+  ],
+  "severity": "P1 - 高风险，需要立即处理",
+  "root_cause": "CPU 使用率过高导致任务处理超时，疑似数据同步工作线程被计算或重试逻辑拖慢。",
+  "key_metrics": {
+    "cpu_max_percent": 96.0,
+    "memory_max_percent": null
+  },
+  "evidence": [
+    "{\"service_name\": \"data-sync-service\", \"metric_name\": \"cpu_usage_percent\", \"statistics\": {\"avg\": 77.2, \"max\": 96.0, \"p95\": 94.8, \"spike_detected\": true}, \"alert_info\": {\"triggered\": true, \"threshold\": 80.0, \"message\": \"CP",
+    "{\"service_name\": \"data-sync-service\", \"logs\": [{\"level\": \"ERROR\", \"message\": \"metadata sync worker timeout after retry\"}, {\"level\": \"WARN\", \"message\": \"retry queue length increased to 1200\"}]}",
+    "data-sync-service CPU 峰值 96%，同时出现 metadata sync worker timeout 和重试队列增长，判断为同步任务重试放大导致 CPU 饱和。"
+  ],
+  "risk_explanation": "P1 - 高风险，需要立即处理。CPU 高位会放大请求排队、任务超时和重试风暴，可能进一步拖慢下游依赖。",
+  "next_actions": [
+    "确认高 CPU 进程和最近 15 分钟错误日志是否集中在同一服务。",
+    "临时限流或扩容 data-sync-service，避免重试继续放大负载。",
+    "排查同步任务是否存在重试间隔过短、死循环或大批量数据扫描。"
+  ],
+  "tool_call_boundary": [
+    "只通过工具读取知识库、日志和监控数据，不直接登录机器。",
+    "MCP 工具只负责查询；重启、扩容、回滚等变更动作必须人工确认。",
+    "报告必须引用工具证据；证据不足时输出不确定性和补查动作。"
+  ],
+  "verification_hint": "Run scripts/run_offline_demo.py and tests/test_aiops_summary_enhancer.py."
+}
+
+[stderr]
+<empty>
+
+## Check 2: AI enhancement tool failure demo
+command: python scripts/run_offline_demo.py --sample sample_events/tool_failure_events.json --json-only
+exit_code: 0
+duration_seconds: 0.182
+
+[stdout]
+{
+  "title": "AIOps 结构化诊断摘要",
+  "scenario": "诊断 data-sync-service 当前是否存在告警，并给出根因、风险和下一步动作。",
+  "affected_services": [
+    "未从证据中识别到明确服务"
+  ],
+  "severity": "P2 - 诊断链路异常，需要先恢复可观测性",
+  "root_cause": "诊断证据不足：关键工具调用失败，需要先恢复日志或监控查询链路。",
+  "key_metrics": {
+    "cpu_max_percent": null,
+    "memory_max_percent": null
+  },
+  "evidence": [
+    "工具 query_cpu_metrics 调用失败：Monitor MCP 服务不可达",
+    "工具 search_log 调用失败：CLS MCP 服务返回 503"
+  ],
+  "risk_explanation": "P2 - 诊断链路异常，需要先恢复可观测性。当前最大风险不是业务结论本身，而是证据链不完整：工具 query_cpu_metrics 调用失败：Monitor MCP 服务不可达; 工具 search_log 调用失败：CLS MCP 服务返回 503。需要先恢复工具查询再下结论。",
+  "next_actions": [
+    "先检查 MCP 服务和监控/日志数据源连通性。",
+    "重试失败工具，并记录失败参数和错误信息。",
+    "如果工具恢复后仍无数据，再升级给可观测性平台负责人。"
+  ],
+  "tool_call_boundary": [
+    "只通过工具读取知识库、日志和监控数据，不直接登录机器。",
+    "MCP 工具只负责查询；重启、扩容、回滚等变更动作必须人工确认。",
+    "报告必须引用工具证据；证据不足时输出不确定性和补查动作。"
+  ],
+  "verification_hint": "Run scripts/run_offline_demo.py and tests/test_aiops_summary_enhancer.py."
+}
+
+[stderr]
+<empty>
+
+## Check 3: Unit tests
+command: python -m unittest discover -s tests -p test_*.py
+exit_code: 0
+duration_seconds: 0.152
+
+[stdout]
+<empty>
+
+[stderr]
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+OK

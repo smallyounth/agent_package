@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560">
+  <rect width="1200" height="560" fill="#020617"/>
+  <rect x="64" y="58" width="1072" height="444" rx="12" fill="#111827" stroke="#475569"/>
+  <circle cx="100" cy="92" r="8" fill="#ef4444"/>
+  <circle cx="126" cy="92" r="8" fill="#f59e0b"/>
+  <circle cx="152" cy="92" r="8" fill="#22c55e"/>
+  <text x="88" y="150" fill="#e5e7eb" font-family="Consolas, monospace" font-size="24">PS&gt; python -m unittest discover -s tests -p "test_*.py"</text>
+  <text x="88" y="210" fill="#a7f3d0" font-family="Consolas, monospace" font-size="24">..</text>
+  <text x="88" y="270" fill="#94a3b8" font-family="Consolas, monospace" font-size="24">----------------------------------------------------------------------</text>
+  <text x="88" y="330" fill="#e5e7eb" font-family="Consolas, monospace" font-size="24">Ran 2 tests in 0.002s</text>
+  <text x="88" y="390" fill="#22c55e" font-family="Consolas, monospace" font-size="30" font-weight="700">OK</text>
+  <text x="88" y="452" fill="#94a3b8" font-family="Consolas, monospace" font-size="20">覆盖: CPU 高风险摘要 / MCP 工具失败异常解释</text>
+</svg>

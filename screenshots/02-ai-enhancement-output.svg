@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <rect width="1200" height="760" fill="#f8fafc"/>
+  <rect x="52" y="46" width="1096" height="668" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="84" y="92" fill="#0f172a" font-family="Arial, sans-serif" font-size="28" font-weight="700">AI 增强点运行截图：AIOps 结构化诊断摘要</text>
+  <rect x="84" y="124" width="1032" height="70" rx="10" fill="#fee2e2" stroke="#ef4444"/>
+  <text x="112" y="168" fill="#991b1b" font-family="Arial, sans-serif" font-size="28" font-weight="700">P1 - 高风险，需要立即处理</text>
+  <text x="84" y="242" fill="#334155" font-family="Arial, sans-serif" font-size="22" font-weight="700">影响服务</text>
+  <text x="240" y="242" fill="#0f172a" font-family="Consolas, monospace" font-size="22">data-sync-service</text>
+  <text x="84" y="292" fill="#334155" font-family="Arial, sans-serif" font-size="22" font-weight="700">关键指标</text>
+  <text x="240" y="292" fill="#0f172a" font-family="Consolas, monospace" font-size="22">cpu_max_percent = 96.0</text>
+  <text x="84" y="342" fill="#334155" font-family="Arial, sans-serif" font-size="22" font-weight="700">根因判断</text>
+  <text x="240" y="342" fill="#0f172a" font-family="Arial, sans-serif" font-size="20">CPU 使用率过高导致任务处理超时，疑似数据同步工作线程被计算或重试逻辑拖慢。</text>
+  <text x="84" y="408" fill="#334155" font-family="Arial, sans-serif" font-size="22" font-weight="700">证据</text>
+  <text x="118" y="448" fill="#0f172a" font-family="Arial, sans-serif" font-size="20">- query_cpu_metrics 返回 max=96.0，spike_detected=true</text>
+  <text x="118" y="484" fill="#0f172a" font-family="Arial, sans-serif" font-size="20">- search_log 返回 metadata sync worker timeout after retry</text>
+  <text x="118" y="520" fill="#0f172a" font-family="Arial, sans-serif" font-size="20">- 报告判断重试队列增长导致 CPU 饱和</text>
+  <text x="84" y="586" fill="#334155" font-family="Arial, sans-serif" font-size="22" font-weight="700">下一步动作</text>
+  <text x="118" y="626" fill="#0f172a" font-family="Arial, sans-serif" font-size="20">1. 确认高 CPU 进程和最近 15 分钟错误日志是否集中在同一服务。</text>
+  <text x="118" y="662" fill="#0f172a" font-family="Arial, sans-serif" font-size="20">2. 临时限流或扩容 data-sync-service，避免重试继续放大负载。</text>
+</svg>

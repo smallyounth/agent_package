@@ -1,0 +1,53 @@
+[
+  {
+    "type": "plan",
+    "stage": "plan_created",
+    "message": "执行计划已制定，共 4 个步骤",
+    "plan": [
+      "使用 retrieve_knowledge 查询 CPU 高使用率处理经验",
+      "使用 query_cpu_metrics 查询 data-sync-service 最近 1 小时 CPU",
+      "使用 search_topic_by_service_name 与 search_log 查询错误日志",
+      "综合指标和日志生成诊断报告"
+    ]
+  },
+  {
+    "type": "tool_observation",
+    "tool": "query_cpu_metrics",
+    "result": {
+      "service_name": "data-sync-service",
+      "metric_name": "cpu_usage_percent",
+      "statistics": {
+        "avg": 77.2,
+        "max": 96.0,
+        "p95": 94.8,
+        "spike_detected": true
+      },
+      "alert_info": {
+        "triggered": true,
+        "threshold": 80.0,
+        "message": "CPU 使用率持续超过 80% 阈值"
+      }
+    }
+  },
+  {
+    "type": "tool_observation",
+    "tool": "search_log",
+    "result": {
+      "service_name": "data-sync-service",
+      "logs": [
+        {
+          "level": "ERROR",
+          "message": "metadata sync worker timeout after retry"
+        },
+        {
+          "level": "WARN",
+          "message": "retry queue length increased to 1200"
+        }
+      ]
+    }
+  },
+  {
+    "type": "report",
+    "report": "data-sync-service CPU 峰值 96%，同时出现 metadata sync worker timeout 和重试队列增长，判断为同步任务重试放大导致 CPU 饱和。"
+  }
+]

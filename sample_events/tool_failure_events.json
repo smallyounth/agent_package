@@ -1,0 +1,22 @@
+[
+  {
+    "type": "plan",
+    "stage": "plan_created",
+    "message": "执行计划已制定，共 3 个步骤",
+    "plan": [
+      "查询当前服务列表",
+      "查询日志主题",
+      "生成诊断报告"
+    ]
+  },
+  {
+    "type": "error",
+    "stage": "executor",
+    "message": "工具 query_cpu_metrics 调用失败：Monitor MCP 服务不可达"
+  },
+  {
+    "type": "error",
+    "stage": "executor",
+    "message": "工具 search_log 调用失败：CLS MCP 服务返回 503"
+  }
+]
