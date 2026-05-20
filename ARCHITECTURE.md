@@ -1,86 +1,69 @@
-# 项目整体架构与 Agent 思路
+# 架构与 Agent 思路
 
 ## 真实场景
 
-企业值班人员收到 `data-sync-service` 告警。传统处理方式需要人工打开监控、日志、历史工单和内部 SOP 文档。这个项目把这些动作变成 Agent 流程：
+企业值班人员收到 `data-sync-service` 告警。面试验证时不接真实监控和日志平台，而是用 `sample_events/` 中的样例事件复现 Agent 的关键判断链路：
 
-1. 先从知识库检索相关经验。
-2. 再规划排查步骤。
-3. 按步骤调用日志和监控工具。
-4. 根据结果决定继续、重规划或生成报告。
-5. 输出根因、证据、风险和处理建议。
+1. 输入 Agent 计划、工具观测结果或工具失败事件。
+2. 提取影响服务、指标、日志证据和错误信息。
+3. 判断风险等级和根因。
+4. 生成风险/异常解释。
+5. 自动给出下一步动作。
 
-## 总体架构
+## 最小可验证架构
 
 ```mermaid
 flowchart TD
-    UI["static Web UI"] --> API["FastAPI app/main.py"]
-    API --> Chat["/api/chat 与 /api/chat_stream"]
-    API --> Upload["/api/upload"]
-    API --> AIOps["/api/aiops"]
-
-    Chat --> RAG["RagAgentService"]
-    RAG --> Tools["本地工具: 时间 / 知识库检索"]
-    RAG --> MCPClient["MultiServerMCPClient"]
-
-    Upload --> Splitter["DocumentSplitterService"]
-    Splitter --> Embed["DashScopeEmbeddings"]
-    Embed --> Milvus["Milvus biz collection"]
-    RAG --> Milvus
-
-    AIOps --> Graph["LangGraph StateGraph"]
-    Graph --> Planner["Planner: 制定计划"]
-    Planner --> Executor["Executor: 调工具执行步骤"]
-    Executor --> Replanner["Replanner: 继续 / 重规划 / 输出"]
-    Replanner --> Executor
-    Replanner --> Report["诊断报告"]
-
-    MCPClient --> CLS["CLS MCP: 日志查询"]
-    MCPClient --> Monitor["Monitor MCP: CPU/内存监控"]
+    Samples["sample_events/*.json"] --> Demo["scripts/run_offline_demo.py"]
+    Samples --> Tests["tests/test_aiops_summary_enhancer.py"]
+    Demo --> Enhancer["AIOpsSummaryEnhancer"]
+    Tests --> Enhancer
+    Enhancer --> Summary["结构化摘要 JSON / Markdown"]
+    Summary --> Logs["verification_logs/"]
+    Tests --> Logs
 ```
 
 ## Agent 状态流
 
-核心状态在 `app/agent/aiops/state.py`：
+本仓库用样例事件模拟完整 Agent 状态流：
 
 ```text
-input       原始任务
-plan        剩余执行计划
-past_steps  已执行步骤和结果
-response    最终报告
+plan_created
+  -> tool_observation
+  -> report
+  -> structured_summary
 ```
 
-状态流在 `app/services/aiops_service.py` 中定义：
+工具失败场景：
 
 ```text
-planner -> executor -> replanner
-                    -> executor 或 END
+plan_created
+  -> error
+  -> evidence_gap_summary
 ```
-
-这个设计的重点是让 Agent 不只是“回答”，而是能“计划、执行、复盘”。Planner 负责把任务拆成步骤；Executor 只执行当前步骤；Replanner 根据已获得证据判断是否继续或输出。
 
 ## 工具调用边界
 
-工具边界分成三类：
+本项目不直接调用生产系统，也不执行变更动作。工具边界在摘要中明确输出：
 
-1. 本地工具：`retrieve_knowledge` 和 `get_current_time`。
-2. MCP 日志工具：`search_topic_by_service_name`、`search_log` 等。
-3. MCP 监控工具：`query_cpu_metrics`、`query_memory_metrics` 等。
-
-边界原则：
-
-- Agent 只查询，不直接变更生产系统。
-- MCP 工具失败会被重试拦截器捕获。
-- 最终报告必须基于工具证据，证据不足时需要说明不确定性。
+- 只通过工具读取知识库、日志和监控数据，不直接登录机器。
+- 工具只负责查询；重启、扩容、回滚等变更动作必须人工确认。
+- 报告必须引用工具证据；证据不足时输出不确定性和补查动作。
 
 ## AI 增强点接入思路
 
-本包新增的 `ai_enhancement/aiops_summary_enhancer.py` 可以接在 AIOps 报告生成后：
+核心增强模块：
 
 ```text
-AIOps events / tool observations
-  -> AIOpsSummaryEnhancer
-  -> 结构化摘要 + 风险解释 + 下一步动作
+ai_enhancement/aiops_summary_enhancer.py
 ```
 
-它不直接替换原 Agent，而是作为报告后处理层，使结果更适合值班交接、面试演示和接口测试。
+输入是 Agent 事件和工具观测结果，输出是面试官可以直接检查的结构化摘要：
+
+```text
+Agent events / tool observations
+  -> AIOpsSummaryEnhancer
+  -> 影响服务 + 风险等级 + 根因 + 证据 + 风险解释 + 下一步动作
+```
+
+这个设计保留了 Agent 落地项目中最容易被面试追问的部分：状态流、工具边界、异常解释和可测试性。
