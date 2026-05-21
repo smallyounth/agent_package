@@ -28,7 +28,7 @@ python scripts\run_offline_demo.py --sample sample_events\cpu_alert_events.json
 截图文件：
 
 ```text
-screenshots/02-ai-enhancement-output.svg
+screenshots_and_recording/02-ai-enhancement-output.svg
 ```
 
 ## 样例 2：工具失败异常解释
@@ -59,5 +59,5 @@ OK
 截图文件：
 
 ```text
-screenshots/03-test-output.svg
+screenshots_and_recording/03-test-output.svg
 ```

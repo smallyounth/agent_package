@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-05-21T09:22:30",
+  "generated_at": "2026-05-21T09:37:29",
   "overall_result": "PASS",
   "checks": [
     {
       "name": "AI enhancement CPU alert demo",
       "command": "python scripts/run_offline_demo.py --sample sample_events/cpu_alert_events.json --json-only",
       "exit_code": 0,
-      "duration_seconds": 0.107
+      "duration_seconds": 0.096
     },
     {
       "name": "AI enhancement tool failure demo",
       "command": "python scripts/run_offline_demo.py --sample sample_events/tool_failure_events.json --json-only",
       "exit_code": 0,
-      "duration_seconds": 0.095
+      "duration_seconds": 0.104
     },
     {
       "name": "Unit tests",
       "command": "python -m unittest discover -s tests -p test_*.py",
       "exit_code": 0,
-      "duration_seconds": 0.11
+      "duration_seconds": 0.114
     }
   ]
 }

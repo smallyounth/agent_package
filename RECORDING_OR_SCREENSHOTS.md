@@ -6,10 +6,12 @@
 
 | 文件 | 展示内容 |
 |---|---|
-| `screenshots/01-core-directory.svg` | 核心目录和交付包结构 |
-| `screenshots/02-ai-enhancement-output.svg` | AI 增强模块输出：P1 风险、CPU 96%、下一步动作 |
-| `screenshots/03-test-output.svg` | 两条测试样例通过 |
-| `screenshots/04-agent-state-flow.svg` | Agent Plan-Execute-Replan 状态流 |
+| `screenshots_and_recording/01-core-directory.svg` | 核心目录和交付包结构 |
+| `screenshots_and_recording/02-ai-enhancement-output.svg` | AI 增强模块输出：P1 风险、CPU 96%、下一步动作 |
+| `screenshots_and_recording/03-test-output.svg` | 两条测试样例通过 |
+| `screenshots_and_recording/04-agent-state-flow.svg` | Agent Plan-Execute-Replan 状态流 |
+| `screenshots_and_recording/*.png` | 实际运行关键截图 |
+| `screenshots_and_recording/*.mp4` | 3-5 分钟录屏素材 |
 
 ## 建议录屏脚本
 

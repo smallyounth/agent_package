@@ -11,10 +11,18 @@ RECORDING_OR_SCREENSHOTS.md
 RUNBOOK_10MIN.md
 sample_events\cpu_alert_events.json
 sample_events\tool_failure_events.json
-screenshots\01-core-directory.svg
-screenshots\02-ai-enhancement-output.svg
-screenshots\03-test-output.svg
-screenshots\04-agent-state-flow.svg
+screenshots_and_recording\01-core-directory.svg
+screenshots_and_recording\02-ai-enhancement-output.svg
+screenshots_and_recording\03-test-output.svg
+screenshots_and_recording\04-agent-state-flow.svg
+screenshots_and_recording\屏幕截图 2026-05-21 093250.png
+screenshots_and_recording\屏幕截图 2026-05-21 093304.png
+screenshots_and_recording\屏幕截图 2026-05-21 093316.png
+screenshots_and_recording\屏幕截图 2026-05-21 093335.png
+screenshots_and_recording\屏幕截图 2026-05-21 093344.png
+screenshots_and_recording\屏幕录制 2026-05-21 092845.mp4
+screenshots_and_recording\屏幕录制 2026-05-21 092943.mp4
+screenshots_and_recording\屏幕录制 2026-05-21 093117.mp4
 scripts\run_full_verification.py
 scripts\run_offline_demo.py
 SUBMISSION_CHECKLIST.md

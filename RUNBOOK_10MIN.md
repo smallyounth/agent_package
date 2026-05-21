@@ -54,7 +54,7 @@ python -m unittest discover -s tests -p "test_*.py"
 - `ARCHITECTURE.md`
 - `KEY_FILES.md`
 - `RECORDING_OR_SCREENSHOTS.md`
-- `screenshots/04-agent-state-flow.svg`
+- `screenshots_and_recording/04-agent-state-flow.svg`
 
 ## 9-10 分钟：看排错记录
 

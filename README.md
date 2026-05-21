@@ -83,7 +83,7 @@ agent_package/
 ├── sample_events/
 ├── scripts/
 ├── tests/
-├── screenshots/
+├── screenshots_and_recording/
 └── verification_logs/
 ```
 
