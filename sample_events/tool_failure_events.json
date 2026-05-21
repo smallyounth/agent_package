@@ -12,11 +12,11 @@
   {
     "type": "error",
     "stage": "executor",
-    "message": "工具 query_cpu_metrics 调用失败：Monitor MCP 服务不可达"
+    "message": "工具 query_cpu_metrics 调用失败：监控查询服务不可达"
   },
   {
     "type": "error",
     "stage": "executor",
-    "message": "工具 search_log 调用失败：CLS MCP 服务返回 503"
+    "message": "工具 search_log 调用失败：日志查询服务返回 503"
   }
 ]

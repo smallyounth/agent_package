@@ -12,7 +12,7 @@
   <line x1="296" y1="212" x2="420" y2="212" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow)"/>
   <rect x="430" y="164" width="210" height="96" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
   <text x="476" y="206" fill="#14532d" font-family="Arial, sans-serif" font-size="24" font-weight="700">Executor</text>
-  <text x="460" y="238" fill="#166534" font-family="Arial, sans-serif" font-size="16">调用 MCP / 本地工具</text>
+  <text x="460" y="238" fill="#166534" font-family="Arial, sans-serif" font-size="16">调用观测 / 本地工具</text>
   <line x1="640" y1="212" x2="764" y2="212" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow)"/>
   <rect x="774" y="164" width="230" height="96" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
   <text x="824" y="206" fill="#92400e" font-family="Arial, sans-serif" font-size="24" font-weight="700">Replanner</text>

@@ -11,8 +11,6 @@ RECORDING_OR_SCREENSHOTS.md
 RUNBOOK_10MIN.md
 sample_events\cpu_alert_events.json
 sample_events\tool_failure_events.json
-sample_requests\aiops_request.json
-sample_requests\chat_request.json
 screenshots\01-core-directory.svg
 screenshots\02-ai-enhancement-output.svg
 screenshots\03-test-output.svg

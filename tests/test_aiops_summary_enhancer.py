@@ -34,7 +34,7 @@ class AIOpsSummaryEnhancerTest(unittest.TestCase):
 
         self.assertIn("证据不足", summary["root_cause"])
         self.assertIn("诊断链路异常", summary["severity"])
-        self.assertIn("MCP", summary["next_actions"][0])
+        self.assertIn("观测工具", summary["next_actions"][0])
         self.assertIn("工具", summary["risk_explanation"])
 
 

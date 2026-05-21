@@ -20,7 +20,7 @@ LATEST_LOG = LOG_DIR / "latest_verification.txt"
 SUMMARY_JSON = LOG_DIR / "latest_verification_summary.json"
 
 
-def run_command(name: str, args: list[str]) -> dict[str, object]:
+def run_command(name: str, args: list[str], artifact_path: Path | None = None) -> dict[str, object]:
     """Run one command and return structured execution evidence."""
 
     start = time.perf_counter()
@@ -37,6 +37,25 @@ def run_command(name: str, args: list[str]) -> dict[str, object]:
 
     display_command = " ".join("python" if arg == sys.executable else arg for arg in args)
 
+    if artifact_path is not None:
+        artifact_path.parent.mkdir(parents=True, exist_ok=True)
+        artifact_path.write_text(
+            "\n".join(
+                [
+                    f"command: {display_command}",
+                    f"exit_code: {completed.returncode}",
+                    "",
+                    "[stdout]",
+                    completed.stdout.rstrip() or "<empty>",
+                    "",
+                    "[stderr]",
+                    completed.stderr.rstrip() or "<empty>",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
     return {
         "name": name,
         "command": display_command,
@@ -52,9 +71,9 @@ def write_log(results: list[dict[str, object]]) -> None:
     passed = all(result["exit_code"] == 0 for result in results)
 
     lines: list[str] = [
-        "SuperBizAgent Interview Verification Log",
+        "AIOps Agent Package Verification Log",
         f"generated_at: {datetime.now().isoformat(timespec='seconds')}",
-        f"package_root: <项目根目录>\\agent_package",
+        "package_root: agent_package repository root",
         "python: python on PATH",
         f"overall_result: {'PASS' if passed else 'FAIL'}",
         "",
@@ -114,6 +133,7 @@ def main() -> int:
                 "sample_events/cpu_alert_events.json",
                 "--json-only",
             ],
+            LOG_DIR / "offline_demo_cpu.txt",
         ),
         (
             "AI enhancement tool failure demo",
@@ -124,14 +144,16 @@ def main() -> int:
                 "sample_events/tool_failure_events.json",
                 "--json-only",
             ],
+            LOG_DIR / "offline_demo_tool_failure.txt",
         ),
         (
             "Unit tests",
             [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"],
+            LOG_DIR / "unittest.txt",
         ),
     ]
 
-    results = [run_command(name, args) for name, args in commands]
+    results = [run_command(name, args, artifact_path) for name, args, artifact_path in commands]
     write_log(results)
 
     passed = all(result["exit_code"] == 0 for result in results)

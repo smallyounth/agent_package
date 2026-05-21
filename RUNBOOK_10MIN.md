@@ -2,24 +2,18 @@
 
 ## 0-1 分钟：确认代码包
 
-面试官测试路径统一写法：
-
-```text
-<项目根目录>\agent_package
-```
-
-其中 `<项目根目录>` 是解压后的项目根目录。例如代码包解压到 `D:\interview\SuperBizAgent`，则测试目录是：
+面试官先 clone 仓库并进入根目录：
 
 ```powershell
-cd D:\interview\SuperBizAgent\agent_package
+git clone https://github.com/smallyounth/agent_package.git
+cd agent_package
 ```
 
-它是原项目 `SuperBizAgent` 的面试交付包，不修改原核心代码，主要提供可验证说明、AI 增强模块、样例、测试和截图。
+这个仓库本身就是独立最小可验证项目，主要提供可运行 AI 增强模块、样例、测试、日志和截图说明。
 
 ## 1-3 分钟：跑 AI 增强离线 demo
 
 ```powershell
-cd <项目根目录>\agent_package
 python scripts\run_offline_demo.py --sample sample_events\cpu_alert_events.json
 ```
 
@@ -33,43 +27,34 @@ python scripts\run_offline_demo.py --sample sample_events\cpu_alert_events.json
 ## 3-5 分钟：跑两条测试样例
 
 ```powershell
-cd <项目根目录>\agent_package
 python -m unittest discover -s tests -p "test_*.py"
 ```
 
 验证内容：
 
 1. CPU 高使用率样例能生成高风险摘要和下一步动作。
-2. MCP 工具失败样例能解释“证据不足/诊断链路异常”。
+2. 工具失败样例能解释“证据不足/诊断链路异常”。
 
-## 5-7 分钟：看原项目接口边界
+## 5-7 分钟：看关键代码和工具边界
 
 重点看这些文件：
 
-- `../app/api/aiops.py`
-- `../app/services/aiops_service.py`
-- `../app/agent/aiops/planner.py`
-- `../app/agent/aiops/executor.py`
-- `../app/agent/aiops/replanner.py`
-- `../app/agent/mcp_client.py`
+- `ai_enhancement/aiops_summary_enhancer.py`
+- `scripts/run_offline_demo.py`
+- `scripts/run_full_verification.py`
+- `sample_events/cpu_alert_events.json`
+- `sample_events/tool_failure_events.json`
 
-一句话解释：FastAPI 只暴露接口，LangGraph 管状态流，MCP 管工具边界。
+一句话解释：样例事件模拟 Agent 状态流，增强模块负责结构化摘要，验证脚本负责可复现测试。
 
-## 7-9 分钟：看完整项目启动方式
+## 7-9 分钟：看架构和截图材料
 
-如果现场允许配置外部依赖：
+打开：
 
-```powershell
-cd <项目根目录>
-.\start-windows.bat
-```
-
-然后访问：
-
-- http://localhost:9900
-- http://localhost:9900/docs
-
-如果没有 API Key 或 Docker，不影响前 5 分钟的离线验证。
+- `ARCHITECTURE.md`
+- `KEY_FILES.md`
+- `RECORDING_OR_SCREENSHOTS.md`
+- `screenshots/04-agent-state-flow.svg`
 
 ## 9-10 分钟：看排错记录
 

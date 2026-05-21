@@ -1,13 +1,13 @@
-SuperBizAgent Interview Verification Log
-generated_at: 2026-05-21T00:07:22
-package_root: <项目根目录>\agent_package
+AIOps Agent Package Verification Log
+generated_at: 2026-05-21T09:22:30
+package_root: agent_package repository root
 python: python on PATH
 overall_result: PASS
 
 ## Check 1: AI enhancement CPU alert demo
 command: python scripts/run_offline_demo.py --sample sample_events/cpu_alert_events.json --json-only
 exit_code: 0
-duration_seconds: 0.192
+duration_seconds: 0.107
 
 [stdout]
 {
@@ -35,7 +35,7 @@ duration_seconds: 0.192
   ],
   "tool_call_boundary": [
     "只通过工具读取知识库、日志和监控数据，不直接登录机器。",
-    "MCP 工具只负责查询；重启、扩容、回滚等变更动作必须人工确认。",
+    "查询工具只负责读取证据；重启、扩容、回滚等变更动作必须人工确认。",
     "报告必须引用工具证据；证据不足时输出不确定性和补查动作。"
   ],
   "verification_hint": "Run scripts/run_offline_demo.py and tests/test_aiops_summary_enhancer.py."
@@ -47,7 +47,7 @@ duration_seconds: 0.192
 ## Check 2: AI enhancement tool failure demo
 command: python scripts/run_offline_demo.py --sample sample_events/tool_failure_events.json --json-only
 exit_code: 0
-duration_seconds: 0.182
+duration_seconds: 0.095
 
 [stdout]
 {
@@ -63,18 +63,18 @@ duration_seconds: 0.182
     "memory_max_percent": null
   },
   "evidence": [
-    "工具 query_cpu_metrics 调用失败：Monitor MCP 服务不可达",
-    "工具 search_log 调用失败：CLS MCP 服务返回 503"
+    "工具 query_cpu_metrics 调用失败：监控查询服务不可达",
+    "工具 search_log 调用失败：日志查询服务返回 503"
   ],
-  "risk_explanation": "P2 - 诊断链路异常，需要先恢复可观测性。当前最大风险不是业务结论本身，而是证据链不完整：工具 query_cpu_metrics 调用失败：Monitor MCP 服务不可达; 工具 search_log 调用失败：CLS MCP 服务返回 503。需要先恢复工具查询再下结论。",
+  "risk_explanation": "P2 - 诊断链路异常，需要先恢复可观测性。当前最大风险不是业务结论本身，而是证据链不完整：工具 query_cpu_metrics 调用失败：监控查询服务不可达; 工具 search_log 调用失败：日志查询服务返回 503。需要先恢复工具查询再下结论。",
   "next_actions": [
-    "先检查 MCP 服务和监控/日志数据源连通性。",
+    "先检查观测工具和监控/日志数据源连通性。",
     "重试失败工具，并记录失败参数和错误信息。",
     "如果工具恢复后仍无数据，再升级给可观测性平台负责人。"
   ],
   "tool_call_boundary": [
     "只通过工具读取知识库、日志和监控数据，不直接登录机器。",
-    "MCP 工具只负责查询；重启、扩容、回滚等变更动作必须人工确认。",
+    "查询工具只负责读取证据；重启、扩容、回滚等变更动作必须人工确认。",
     "报告必须引用工具证据；证据不足时输出不确定性和补查动作。"
   ],
   "verification_hint": "Run scripts/run_offline_demo.py and tests/test_aiops_summary_enhancer.py."
@@ -86,7 +86,7 @@ duration_seconds: 0.182
 ## Check 3: Unit tests
 command: python -m unittest discover -s tests -p test_*.py
 exit_code: 0
-duration_seconds: 0.152
+duration_seconds: 0.11
 
 [stdout]
 <empty>
@@ -94,6 +94,6 @@ duration_seconds: 0.152
 [stderr]
 ..
 ----------------------------------------------------------------------
-Ran 2 tests in 0.002s
+Ran 2 tests in 0.001s
 
 OK

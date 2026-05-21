@@ -1,6 +1,6 @@
 # AIOps Agent Package
 
-这是一个独立的最小可验证 Agent 项目。面试官不需要原来的完整项目、API Key、Docker、Milvus、MCP 服务或后端 Web 服务，只要有 Python 就可以在 10 分钟内验证核心逻辑。
+这是一个独立的最小可验证 Agent 项目。面试官只需要 Python 环境，不需要准备任何外部服务、历史工程或账号密钥，就可以在 10 分钟内验证核心逻辑。
 
 项目模拟一个真实 OnCall 场景：值班人员收到 `data-sync-service` 告警后，Agent 根据过程事件和工具观测结果，输出结构化摘要、风险解释和下一步动作。
 

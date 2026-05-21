@@ -1,7 +1,8 @@
 """AIOps structured summary enhancement.
 
 This module is intentionally self-contained so an interviewer can verify the
-AI product idea without configuring DashScope, Milvus, Docker, or MCP servers.
+AI product idea without configuring model keys, databases, containers, or
+external observability services.
 It mirrors the production Agent boundary: it only consumes Agent events and
 tool observations, then turns them into a structured risk summary and next
 actions.
@@ -69,7 +70,7 @@ class AIOpsSummaryEnhancer:
 
         return [
             "只通过工具读取知识库、日志和监控数据，不直接登录机器。",
-            "MCP 工具只负责查询；重启、扩容、回滚等变更动作必须人工确认。",
+            "查询工具只负责读取证据；重启、扩容、回滚等变更动作必须人工确认。",
             "报告必须引用工具证据；证据不足时输出不确定性和补查动作。",
         ]
 
@@ -148,7 +149,7 @@ class AIOpsSummaryEnhancer:
     def _next_actions(self, root_cause: str, tool_errors: list[str]) -> list[str]:
         if tool_errors:
             return [
-                "先检查 MCP 服务和监控/日志数据源连通性。",
+                "先检查观测工具和监控/日志数据源连通性。",
                 "重试失败工具，并记录失败参数和错误信息。",
                 "如果工具恢复后仍无数据，再升级给可观测性平台负责人。",
             ]

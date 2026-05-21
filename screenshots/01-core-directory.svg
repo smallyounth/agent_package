@@ -1,20 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
   <rect width="1200" height="760" fill="#0f172a"/>
   <rect x="48" y="44" width="1104" height="672" rx="14" fill="#111827" stroke="#334155"/>
-  <text x="80" y="92" fill="#e5e7eb" font-family="Consolas, monospace" font-size="28" font-weight="700">SuperBizAgent 核心目录截图</text>
-  <text x="80" y="134" fill="#94a3b8" font-family="Consolas, monospace" font-size="18">项目根目录: super_biz_agent_py-release-2026-03-21</text>
-  <text x="80" y="184" fill="#a7f3d0" font-family="Consolas, monospace" font-size="20">app/</text>
-  <text x="122" y="218" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">api/                 FastAPI 路由: chat, aiops, upload, health</text>
-  <text x="122" y="252" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">services/            RAG、AIOps、向量索引与检索服务</text>
-  <text x="122" y="286" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">agent/aiops/         Planner / Executor / Replanner / State</text>
-  <text x="122" y="320" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">tools/               retrieve_knowledge、get_current_time</text>
-  <text x="122" y="354" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">core/                Milvus client、LLM factory</text>
-  <text x="80" y="408" fill="#a7f3d0" font-family="Consolas, monospace" font-size="20">mcp_servers/</text>
-  <text x="122" y="442" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">cls_server.py        日志查询 MCP 工具</text>
-  <text x="122" y="476" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">monitor_server.py    CPU / 内存监控 MCP 工具</text>
-  <text x="80" y="530" fill="#a7f3d0" font-family="Consolas, monospace" font-size="20">agent_package/</text>
-  <text x="122" y="564" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">README + RUNBOOK     10 分钟验证说明</text>
-  <text x="122" y="598" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">ai_enhancement/      结构化摘要 + 风险解释 + 下一步动作</text>
-  <text x="122" y="632" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">tests/               2 条可复现测试样例</text>
-  <text x="122" y="666" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">screenshots/         面试关键截图材料</text>
+  <text x="80" y="92" fill="#e5e7eb" font-family="Consolas, monospace" font-size="28" font-weight="700">agent_package 独立最小验证项目</text>
+  <text x="80" y="134" fill="#94a3b8" font-family="Consolas, monospace" font-size="18">clone 后进入仓库根目录，直接运行 python scripts/run_full_verification.py</text>
+  <text x="80" y="188" fill="#a7f3d0" font-family="Consolas, monospace" font-size="20">ai_enhancement/</text>
+  <text x="122" y="222" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">aiops_summary_enhancer.py   结构化摘要、风险解释、下一步动作</text>
+  <text x="80" y="276" fill="#a7f3d0" font-family="Consolas, monospace" font-size="20">sample_events/</text>
+  <text x="122" y="310" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">cpu_alert_events.json       CPU 告警、指标和日志证据</text>
+  <text x="122" y="344" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">tool_failure_events.json    工具失败和证据链中断</text>
+  <text x="80" y="398" fill="#a7f3d0" font-family="Consolas, monospace" font-size="20">scripts/</text>
+  <text x="122" y="432" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">run_offline_demo.py         单样例运行入口</text>
+  <text x="122" y="466" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">run_full_verification.py    一键验证并生成完整日志</text>
+  <text x="80" y="520" fill="#a7f3d0" font-family="Consolas, monospace" font-size="20">tests/</text>
+  <text x="122" y="554" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">test_aiops_summary_enhancer.py  两条可复现测试样例</text>
+  <text x="80" y="608" fill="#a7f3d0" font-family="Consolas, monospace" font-size="20">verification_logs/</text>
+  <text x="122" y="642" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">latest_verification.txt     命令、退出码、stdout/stderr、总结果</text>
+  <text x="122" y="676" fill="#e5e7eb" font-family="Consolas, monospace" font-size="18">latest_verification_summary.json  机器可读验证摘要</text>
 </svg>

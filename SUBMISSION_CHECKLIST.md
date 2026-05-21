@@ -19,7 +19,8 @@
 ## 最短验收命令
 
 ```powershell
-cd <项目根目录>\agent_package
+git clone https://github.com/smallyounth/agent_package.git
+cd agent_package
 python scripts\run_full_verification.py
 python scripts\run_offline_demo.py --sample sample_events\cpu_alert_events.json
 python -m unittest discover -s tests -p "test_*.py"

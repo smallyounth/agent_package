@@ -9,5 +9,5 @@
   <text x="88" y="270" fill="#94a3b8" font-family="Consolas, monospace" font-size="24">----------------------------------------------------------------------</text>
   <text x="88" y="330" fill="#e5e7eb" font-family="Consolas, monospace" font-size="24">Ran 2 tests in 0.002s</text>
   <text x="88" y="390" fill="#22c55e" font-family="Consolas, monospace" font-size="30" font-weight="700">OK</text>
-  <text x="88" y="452" fill="#94a3b8" font-family="Consolas, monospace" font-size="20">覆盖: CPU 高风险摘要 / MCP 工具失败异常解释</text>
+  <text x="88" y="452" fill="#94a3b8" font-family="Consolas, monospace" font-size="20">覆盖: CPU 高风险摘要 / 工具失败异常解释</text>
 </svg>

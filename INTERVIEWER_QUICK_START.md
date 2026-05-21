@@ -2,19 +2,14 @@
 
 ## 测试路径
 
-请进入解压后的面试交付包目录：
+请进入 GitHub 仓库根目录：
 
 ```powershell
-cd <项目根目录>\agent_package
+git clone https://github.com/smallyounth/agent_package.git
+cd agent_package
 ```
 
-示例：
-
-```powershell
-cd D:\interview\SuperBizAgent\agent_package
-```
-
-其中 `<项目根目录>` 是包含 `agent_package/` 的目录。
+仓库本身就是最小可验证项目，不需要再准备其他工程目录。
 
 ## 10 分钟内验证命令
 
@@ -106,20 +101,6 @@ ai_enhancement/aiops_summary_enhancer.py
 结构化摘要 + 风险/异常解释 + 自动生成下一步动作
 ```
 
-## 完整项目启动命令
+## 依赖说明
 
-如果面试机器已配置 DashScope API Key、Docker、Milvus 和 MCP 服务，可在项目根目录启动完整服务：
-
-```powershell
-cd <项目根目录>
-.\start-windows.bat
-```
-
-启动后访问：
-
-```text
-http://localhost:9900
-http://localhost:9900/docs
-```
-
-如果没有外部依赖配置，优先使用上面的离线验证命令。
+只需要 Python 3.10+。本项目不依赖外部服务、模型账号、数据库、后端接口或浏览器页面。
